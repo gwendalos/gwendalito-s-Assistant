@@ -12,21 +12,21 @@ from discord import Game
 from discord.ext import commands
 from discord.ext import tasks
 
-token = ""
+token = "" # Insert your bot token here
 intents = discord.Intents.default()
 intents.members = True
 bot = commands.Bot(command_prefix="g-", activity=discord.Game(name=f'''g-info | g-commands'''), intents=intents)
-bot.remove_command('help')
+bot.remove_command('help') # The basic help command is removed because of the custom one
 
 @bot.event
 async def on_ready():
     subprocess.call("cls", shell=True)
     init()
-    print(Fore.MAGENTA + f'''gwendalito's Assistant loaded\n-----''' + Fore.RESET)
+    print(Fore.MAGENTA + f'''gwendalito's Assistant loaded\n-----''' + Fore.RESET) # Print to know when the bot is online
 
 @bot.event
-async def on_command_error(ctx, error):
-    if isinstance(error, commands.CommandNotFound):
+async def on_command_error(ctx, error): # Error handler
+    if isinstance(error, commands.CommandNotFound): # If command is not found
         await ctx.send("**`Command does not exist!`**")
         embed=discord.Embed(color = 0x9C1796)\
         .add_field(name="g-suggest", value="You got a command/website idea you'd like to see in gwendalito? Let us know!", inline=False)\
@@ -34,7 +34,7 @@ async def on_command_error(ctx, error):
         await ctx.send(embed=embed)
         return
 
-    if isinstance(error, commands.CommandOnCooldown):
+    if isinstance(error, commands.CommandOnCooldown): # If command is on cooldown
         coolerrr = (ctx.author.mention) + "` You are on cooldown for {:.2f}s. Please Be Patient!`**".format(error.retry_after)
         await ctx.send(coolerrr)
         return
@@ -42,7 +42,7 @@ async def on_command_error(ctx, error):
     raise error
 
 @bot.command(aliases=["h", "commands"])
-async def help(ctx, command=None):
+async def help(ctx, command=None): # Custom help command
 	if command is None:
 		embed = discord.Embed(color = 0x9C1796)\
 				.add_field(name="g-suggest", value="You got a command/website idea you'd like to see in gwendalito? Let us know!", inline=False)\
@@ -63,7 +63,7 @@ async def help(ctx, command=None):
 
 
 @bot.command(aliases=["i", 'information'], description="Check gwendalito's infos")
-async def info(ctx):
+async def info(ctx): # Similar to a 'links' command
     embed = discord.Embed(title="Info Page:", description="If the bot is offline, feel free to join our Discord server. We say why/when the bot is down.", color=0x9C1796)
     embed.set_thumbnail(url='https://cdn.discordapp.com/attachments/874781547851546625/875995647185125406/gwendalito_artwork_mini.png')
     embed.set_footer(text=f"Main Page")
@@ -75,7 +75,7 @@ async def info(ctx):
 
 @bot.command(aliases=["sug"])
 @commands.cooldown(1, 60, commands.BucketType.user)
-async def suggest(ctx, *,suggestion: str):
+async def suggest(ctx, *, suggestion: str): # Suggestion command, the category and the suggestion get split by a comma
 	await ctx.message.delete()
 	channel = bot.get_channel(862484478214930432)
 	upvote = "<:upvote:879397319475343420>"
@@ -89,9 +89,9 @@ async def suggest(ctx, *,suggestion: str):
 
 @bot.command()
 @commands.cooldown(1, 60, commands.BucketType.user)
-async def bug(ctx, *,bug_report: str):
+async def bug(ctx, *, bug_report: str): # Bug report command, the category and the bug gets split by a comma
 	await ctx.message.delete()
-	channel = bot.get_channel(876226295896354826)
+	channel = bot.get_channel(876226295896354826) # Bot gets the bug reports channel of gwendalito's support server
 	upvote = "<:upvote:879397319475343420>"
 	bug_report = bug_report.replace(', ', ',').split(',')
 	embed = discord.Embed(title=f"Bug Reported by {ctx.author}:", color=0x9C1796)\
@@ -103,9 +103,9 @@ async def bug(ctx, *,bug_report: str):
 
 @bot.command()
 @commands.cooldown(1, 60, commands.BucketType.user)
-async def contact(ctx, *, message):
+async def contact(ctx, *, message): # Command to send a DM to gwendal (me lmao)
 	await ctx.message.delete()
-	gwendal = bot.get_user(437265873401544705)
+	gwendal = bot.get_user(437265873401544705) # Bot gets my user ID to send me a DM
 
 	embed = discord.Embed(title=f"Message sent by '{ctx.author}'")\
 			.add_field(name="User ID:", value=f"{ctx.author.id}")\
@@ -113,4 +113,4 @@ async def contact(ctx, *, message):
 
 	await gwendal.send(embed=embed)
 
-bot.run(token)
+bot.run(token) # Run the bot
