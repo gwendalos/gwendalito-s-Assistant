@@ -12,10 +12,10 @@ from discord import Game
 from discord.ext import commands
 from discord.ext import tasks
 
-token = "" # Insert your bot token here
+token = "ODU1MDQzNTUwNzg5NjMyMDIx.YMsvXA.fywyg48GVbnd-g-TTrZwGXFkcTM" # Insert your bot token here
 intents = discord.Intents.default()
 intents.members = True
-bot = commands.Bot(command_prefix="g-", activity=discord.Game(name=f'''g-info | g-commands'''), intents=intents)
+bot = commands.Bot(command_prefix="gg-", activity=discord.Game(name=f'''g-info | g-commands'''), intents=intents)
 bot.remove_command('help') # The basic help command is removed because of the custom one
 
 @bot.event
@@ -29,14 +29,20 @@ async def on_command_error(ctx, error): # Error handler
     if isinstance(error, commands.CommandNotFound): # If command is not found
         await ctx.send("**`Command does not exist!`**")
         embed=discord.Embed(color = 0x9C1796)\
-        .add_field(name="g-suggest", value="You got a command/website idea you'd like to see in gwendalito? Let us know!", inline=False)\
-        .add_field(name="g-bug", value="Wanna report a bug to our developers? Do it now!", inline=False)
+        .add_field(name="g-suggest", value="Have a command/feature idea you'd like to see in gwendalito? Let us know!", inline=False)\
+        .add_field(name="g-bug", value="Wanna report a bug to our developers? Do it now!", inline=False)\
+	    .set_footer(text="Created using bit.ly/gwendalitosassistant")
         await ctx.send(embed=embed)
         return
 
     if isinstance(error, commands.CommandOnCooldown): # If command is on cooldown
-        coolerrr = (ctx.author.mention) + "` You are on cooldown for {:.2f}s. Please Be Patient!`**".format(error.retry_after)
+        coolerrr = (ctx.author.mention) + "` You are on cooldown for {:.2f}s. Please be patient!`**".format(error.retry_after)
         await ctx.send(coolerrr)
+        return
+
+    if isinstance(error, commands.MissingRequiredArgument): # If command is missing an argument
+        coolerrr1 = (ctx.author.mention) + "**Missing required arguments!**"
+        await ctx.send(coolerrr1)
         return
 
     raise error
@@ -45,21 +51,27 @@ async def on_command_error(ctx, error): # Error handler
 async def help(ctx, command=None): # Custom help command
 	if command is None:
 		embed = discord.Embed(color = 0x9C1796)\
-				.add_field(name="g-suggest", value="You got a command/website idea you'd like to see in gwendalito? Let us know!", inline=False)\
-				.add_field(name="g-bug", value="You found a bug and you want to tell us? Do it now!", inline=False)\
+				.add_field(name="g-suggest", value="Have a command/feature idea you'd like to see in gwendalito? Let us know!", inline=False)\
+				.add_field(name="g-bug", value="Wanna report a bug to our developers? Do it now!", inline=False)\
 				.add_field(name="g-contact", value="Message gwendal remotely about issues (or if you want to give some compliments). If you use this excessively, you will be blacklisted from the bot.")
+		embed.set_footer(text="Created using bit.ly/gwendalitosassistant")
 		await ctx.send(embed=embed)
 	elif command == "suggest":
 		embed = discord.Embed(title=f"{command}", color=0x9C1796)\
 				.add_field(name="• __suggest__", value="g-[suggest|sug] [Category] [Suggestion] (split by a comma)")
+		embed.set_footer(text="Created using bit.ly/gwendalitosassistant")
+
 		await ctx.send(embed=embed)
 	elif command == "bug":
 		embed = discord.Embed(title=f"{command}", color=0x9C1796)\
 				.add_field(name="• __bug__", value="g-[bug] [Command] [Bug Description] (split by a comma)")
+		embed.set_footer(text="Created using bit.ly/gwendalitosassistant")
 		await ctx.send(embed=embed)
 	elif command == "contact":
 		embed = discord.Embed(title=f"{command}", color=0x9C1796)\
 				.add_field(name="• __contact__", value="g-[contact] [Message]")
+		embed.set_footer(text="Created using bit.ly/gwendalitosassistant")
+		await ctx.send(embed=embed)
 
 
 @bot.command(aliases=["i", 'information'], description="Check gwendalito's infos")
@@ -71,13 +83,13 @@ async def info(ctx): # Similar to a 'links' command
     embed.add_field(name='❓ Support', value='Join the official [support server](https://discord.gg/YGsZfSCTqC) of gwendalito', inline=False)
     embed.add_field(name='<:upvote:879397319475343420> Upvote', value='Please, if you like gwendalito, [upvote](https://top.gg/bot/854828194653011978/vote) it. This is really important for us.', inline=False)
     embed.add_field(name='🔗 Invite', value='[Invite gwendalito](https://discord.com/oauth2/authorize?client_id=854828194653011978&permissions=8&scope=applications.commands%20bot) in your server', inline=False)
-    my_msg = await ctx.send(embed = embed)
+    await ctx.send(embed = embed)
 
 @bot.command(aliases=["sug"])
 @commands.cooldown(1, 60, commands.BucketType.user)
 async def suggest(ctx, *, suggestion: str): # Suggestion command, the category and the suggestion get split by a comma
 	await ctx.message.delete()
-	channel = bot.get_channel(862484478214930432)
+	channel = bot.get_channel(887623408798556190)
 	upvote = "<:upvote:879397319475343420>"
 	suggestion = suggestion.replace(' ,', ',').split(',')
 	embed = discord.Embed(title=f"Suggested by {ctx.author}:", color=0x9C1796)\
@@ -91,7 +103,7 @@ async def suggest(ctx, *, suggestion: str): # Suggestion command, the category a
 @commands.cooldown(1, 60, commands.BucketType.user)
 async def bug(ctx, *, bug_report: str): # Bug report command, the category and the bug gets split by a comma
 	await ctx.message.delete()
-	channel = bot.get_channel(876226295896354826) # Bot gets the bug reports channel of gwendalito's support server
+	channel = bot.get_channel(887623408798556190) # Bot gets the bug reports channel of gwendalito's support server
 	upvote = "<:upvote:879397319475343420>"
 	bug_report = bug_report.replace(', ', ',').split(',')
 	embed = discord.Embed(title=f"Bug Reported by {ctx.author}:", color=0x9C1796)\
@@ -103,7 +115,7 @@ async def bug(ctx, *, bug_report: str): # Bug report command, the category and t
 
 @bot.command()
 @commands.cooldown(1, 60, commands.BucketType.user)
-async def contact(ctx, *, message): # Command to send a DM to gwendal (me lmao)
+async def contact(ctx, *, message = None): # Command to send a DM to gwendal (me lmao)
 	await ctx.message.delete()
 	gwendal = bot.get_user(437265873401544705) # Bot gets my user ID to send me a DM
 
