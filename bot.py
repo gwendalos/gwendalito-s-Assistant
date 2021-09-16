@@ -29,13 +29,13 @@ async def on_command_error(ctx, error): # Error handler
     if isinstance(error, commands.CommandNotFound): # If command is not found
         await ctx.send("**`Command does not exist!`**")
         embed=discord.Embed(color = 0x9C1796)\
-        .add_field(name="g-suggest", value="You got a command/website idea you'd like to see in gwendalito? Let us know!", inline=False)\
+        .add_field(name="g-suggest", value="Have a command/feature idea you'd like to see in gwendalito? Let us know!", inline=False)\
         .add_field(name="g-bug", value="Wanna report a bug to our developers? Do it now!", inline=False)
         await ctx.send(embed=embed)
         return
 
     if isinstance(error, commands.CommandOnCooldown): # If command is on cooldown
-        coolerrr = (ctx.author.mention) + "` You are on cooldown for {:.2f}s. Please Be Patient!`**".format(error.retry_after)
+        coolerrr = (ctx.author.mention) + "` You are on cooldown for {:.2f}s. Please be patient!`**".format(error.retry_after)
         await ctx.send(coolerrr)
         return
 
@@ -45,8 +45,8 @@ async def on_command_error(ctx, error): # Error handler
 async def help(ctx, command=None): # Custom help command
 	if command is None:
 		embed = discord.Embed(color = 0x9C1796)\
-				.add_field(name="g-suggest", value="You got a command/website idea you'd like to see in gwendalito? Let us know!", inline=False)\
-				.add_field(name="g-bug", value="You found a bug and you want to tell us? Do it now!", inline=False)\
+				.add_field(name="g-suggest", value="Have a command/feature idea you'd like to see in gwendalito? Let us know!", inline=False)\
+				.add_field(name="g-bug", value="Wanna report a bug to our developers? Do it now!", inline=False)\
 				.add_field(name="g-contact", value="Message gwendal remotely about issues (or if you want to give some compliments). If you use this excessively, you will be blacklisted from the bot.")
 		await ctx.send(embed=embed)
 	elif command == "suggest":
