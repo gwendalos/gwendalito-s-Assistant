@@ -14,9 +14,10 @@ First off, create a folder on your device where you would like this bot to go.
 Secondly, either download the files or use `git clone https://github.com/gwendalos/gwendalito-s-Assistant.git` into your folder.
 
 Now install the following packages:
-```pip install discord.py``` or if using PyCord ```pip install -U py-cord```
-```pip install colorama```
-```pip install asyncio```
+- ```pip install discord.py``` or if using Pycord ```pip install -U py-cord```
+- ```pip install colorama```
+- ```pip install asyncio```
+
 
 Then, edit `bot.py` and put your bot token in the token variable (line 15).
 
