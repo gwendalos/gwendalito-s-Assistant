@@ -9,13 +9,15 @@ Open source project of gwendalito's Assistant Discord Bot
 ## Installation
 I'm going from the fact that you already created a Bot and you know what you're doing.
 
-First, you will need to install discord.py or pycord (because discord.py has been canceled) and colorama
+First, you will need to install discord.py or pycord, colorama and asyncio (optional)
 
 ```pip install discord.py```
 ```pip install colorama```
+```pip install asyncio```(optional)
 or
 ```pip install -U py-cord```
 ```pip install colorama```
+```pip install asyncio```(optional)
 
 Then, open `bot.py` and put your bot token in the token string (line 15).
 
