@@ -7,21 +7,20 @@ Open source project of gwendalito's Assistant Discord Bot
 - [colorama](https://pypi.org/project/colorama/) Library
 
 ## Installation
-I'm going from the fact that you already created a Bot and you know what you're doing.
+To use this bot, you must already have a bot set up (created application, then enabled the bot, invited it to a server and copied the token)
+You must also have python, pip and install the above packages.
 
-First, you will need to install discord.py or pycord, colorama and asyncio (optional)
+First off, create a folder on your device where you would like this bot to go.
+Secondly, either download the files or use `git clone https://github.com/gwendalos/gwendalito-s-Assistant.git` into your folder.
 
-```pip install discord.py```
+Now install the following packages:
+```pip install discord.py``` or if using PyCord ```pip install -U py-cord```
 ```pip install colorama```
-```pip install asyncio```(optional)
-or
-```pip install -U py-cord```
-```pip install colorama```
-```pip install asyncio```(optional)
+```pip install asyncio```
 
-Then, open `bot.py` and put your bot token in the token string (line 15).
+Then, edit `bot.py` and put your bot token in the token variable (line 15).
 
-And this is done! Wow that was hard...
+To run the bot, open a command line window in the folder where you cloned the repo and run `py bot.py`. The bot should appear online in your server.
 
-## Complemental informations
-You can do everything you want with the code. I'll just ask you to make it like it's your own. Customize it at a point where no one can say "Hey that's gwendalito's Assistant right?". Be creative and have a nice time with it. Bye!
+## Extra information
+Feel free to modify this code to your own likeing, but please mention the source. (use this: "bit.ly/gwendalitosassistant")
